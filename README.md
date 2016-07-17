@@ -1,5 +1,4 @@
 # concrete-api
-Desafio Concrete Solutions
 
 # Desafio Java Concrete Solutions
 
