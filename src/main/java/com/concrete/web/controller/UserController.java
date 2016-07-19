@@ -54,10 +54,12 @@ public class UserController {
 		} catch (final UserAlreadyRegisteredException exception) {
 			final MessageError messageError = exception.getMessageError();
 			response = new ResponseEntity<>(messageError, HttpStatus.CONFLICT);
+			LOGGER.error(messageError.getMensagens(), exception);
 
 		} catch (final BusinessException exception) {
 			final MessageError messageError = exception.getMessageError();
 			response = new ResponseEntity<>(messageError, HttpStatus.BAD_REQUEST);
+			LOGGER.error(messageError.getMensagens(), exception);
 		}
 
 		LOGGER.debug("Fim do cadastro de usuario.");
