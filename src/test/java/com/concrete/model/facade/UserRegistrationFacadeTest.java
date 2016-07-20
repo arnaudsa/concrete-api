@@ -30,6 +30,8 @@ import com.concrete.model.facade.impl.UserRegistrationFacadeImpl;
 import com.concrete.model.mock.to.UserTOMock;
 import com.concrete.model.repository.PhoneRepository;
 import com.concrete.model.repository.UserRepository;
+import com.concrete.model.security.Cryptography;
+import com.concrete.model.security.TokenHelper;
 import com.concrete.model.to.MessageError;
 import com.concrete.model.to.UserTO;
 import com.concrete.model.util.Email;
@@ -57,6 +59,12 @@ public class UserRegistrationFacadeTest {
 
 	@Mock
 	private JavaMailSender mailSender;
+
+	@Mock
+	private Cryptography cryptography;
+
+	@Mock
+	private TokenHelper tokenHelper;
 
 	@InjectMocks
 	private final UserRegistrationFacade userRegistrationFacade = new UserRegistrationFacadeImpl();

@@ -10,6 +10,7 @@ import static com.concrete.model.constants.MensagemConstants.EMAIL_NAO_INFORMADO
 import static com.concrete.model.constants.MensagemConstants.NOME_NAO_INFORMADO;
 import static com.concrete.model.constants.MensagemConstants.PASSWORD_NAO_INFORMADO;
 import static com.concrete.model.constants.MensagemConstants.SUBJECT_EMAIL_USER_REGISTRATION;
+import static com.concrete.model.constants.MensagemConstants.SUBJECT_TOKEN_USER;
 import static com.concrete.model.constants.MensagemConstants.TEXT_EMAIL_USER_REGISTRATION;
 
 import java.text.MessageFormat;
@@ -30,6 +31,8 @@ import com.concrete.model.exception.UserRegistrationException;
 import com.concrete.model.facade.UserRegistrationFacade;
 import com.concrete.model.repository.PhoneRepository;
 import com.concrete.model.repository.UserRepository;
+import com.concrete.model.security.Cryptography;
+import com.concrete.model.security.TokenHelper;
 import com.concrete.model.to.MessageError;
 import com.concrete.model.to.PhoneTO;
 import com.concrete.model.to.UserTO;
@@ -52,6 +55,12 @@ public class UserRegistrationFacadeImpl implements UserRegistrationFacade {
 
 	@Autowired
 	private Email email;
+
+	@Autowired
+	private Cryptography cryptography;
+
+	@Autowired
+	private TokenHelper tokenHelper;
 
 	@Override
 	public void validate(final UserTO userTO) throws UserRegistrationException, UserAlreadyRegisteredException {
@@ -125,11 +134,17 @@ public class UserRegistrationFacadeImpl implements UserRegistrationFacade {
 
 		final Calendar sysdate = Calendar.getInstance();
 
+		final String password = userTO.getPassword();
+		final String passwordEncrypt = cryptography.encrypt(password);
+
+		final String token = createToken(userTO);
+
 		final User userEntity = UserConverter.toEntity(userTO);
 		userEntity.setCreated(sysdate);
 		userEntity.setModified(sysdate);
 		userEntity.setLastLogin(sysdate);
-		userEntity.setToken("token");
+		userEntity.setToken(token);
+		userEntity.setPassword(passwordEncrypt);
 
 		userRepository.save(userEntity);
 		phoneRepository.save(userEntity.getPhones());
@@ -138,8 +153,21 @@ public class UserRegistrationFacadeImpl implements UserRegistrationFacade {
 		userTO.setCreated(sysDateStr);
 		userTO.setModified(sysDateStr);
 		userTO.setLastLogin(sysDateStr);
-		userTO.setToken("token");
+		userTO.setToken(token);
 		userTO.setId(String.valueOf(userEntity.getId()));
+	}
+
+
+	/**
+	 * Cria o token
+	 * 
+	 * @param userTO
+	 * @return String do token
+	 */
+	private String createToken(final UserTO userTO) {
+		final String user = userTO.getName();
+		final String password = userTO.getPassword();
+		return tokenHelper.createToken(user, password, SUBJECT_TOKEN_USER);
 	}
 
 	@Override

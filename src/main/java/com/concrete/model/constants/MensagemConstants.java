@@ -27,4 +27,7 @@ public class MensagemConstants {
 	public static final String SUBJECT_EMAIL_USER_REGISTRATION = "Cadastro de Usuário na plataforma concrete-api";
 	public static final String TEXT_EMAIL_USER_REGISTRATION = "Usuário: {0} - E-mail: {1} cadastrado na plataforma concrete-api";
 
+	public static final String SUBJECT_TOKEN_USER = "Token de Usuário";
+
+
 }
