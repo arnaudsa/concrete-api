@@ -18,4 +18,13 @@ public class ConcreteApiApplication {
 		SpringApplication.run(ConcreteApiApplication.class, args);
 	}
 
+	//	@Bean
+	//	public ViewResolver internalResourceViewResolver() {
+	//		final InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+	//		resolver.setPrefix("/WEB-INF/views/");
+	//		resolver.setSuffix(".jsp");
+	//		resolver.setViewClass(JstlView.class);
+	//		resolver.setOrder(1);
+	//		return resolver;
+	//	}
 }
