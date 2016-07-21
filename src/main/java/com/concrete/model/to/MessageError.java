@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 
 public class MessageError extends TO {
 
@@ -33,6 +35,14 @@ public class MessageError extends TO {
 
 	public void setMensagens(final List<String> mensagens) {
 		this.mensagens = mensagens;
+	}
+
+	public String getFirsMessage() {
+		String message = StringUtils.EMPTY;
+		if (hasError()) {
+			message = mensagens.get(NumberUtils.INTEGER_ZERO);
+		}
+		return message;
 	}
 
 	public boolean hasError() {

@@ -29,5 +29,8 @@ public class MensagemConstants {
 
 	public static final String SUBJECT_TOKEN_USER = "Token de Usuário";
 
+	public static final String USER_OR_PASSWORD_INVALID = "Usuário e/ou senha inválidos.";
+	public static final String USER_NOT_FOUND = "Usuário {0} não encontrado.";
+
 
 }

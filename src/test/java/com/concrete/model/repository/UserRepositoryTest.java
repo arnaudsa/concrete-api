@@ -1,5 +1,7 @@
 package com.concrete.model.repository;
 
+import static com.concrete.model.mock.enity.UserMock.EMAIL;
+
 import java.util.List;
 
 import org.junit.Assert;
@@ -60,7 +62,7 @@ public class UserRepositoryTest extends SpringTestInit {
 
 		userRepositoy.saveAndFlush(user);
 
-		final User userFound = userRepositoy.findByEmail(UserMock.EMAIL);
+		final User userFound = userRepositoy.findByEmail(EMAIL);
 		Assert.assertNotNull(userFound);
 	}
 }

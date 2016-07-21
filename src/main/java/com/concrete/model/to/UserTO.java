@@ -98,4 +98,31 @@ public class UserTO extends TO {
 	public void setPhones(final List<PhoneTO> phones) {
 		this.phones = phones;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder builder = new StringBuilder();
+		builder.append("UserTO [id=");
+		builder.append(id);
+		builder.append(", name=");
+		builder.append(name);
+		builder.append(", email=");
+		builder.append(email);
+		builder.append(", password=");
+		builder.append(password);
+		builder.append(", created=");
+		builder.append(created);
+		builder.append(", modified=");
+		builder.append(modified);
+		builder.append(", lastLogin=");
+		builder.append(lastLogin);
+		builder.append(", token=");
+		builder.append(token);
+		builder.append(", phones=");
+		builder.append(phones);
+		builder.append("]");
+		return builder.toString();
+	}
+
+
 }

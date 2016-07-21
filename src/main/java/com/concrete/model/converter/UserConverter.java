@@ -7,7 +7,9 @@ import java.util.List;
 
 import com.concrete.model.entity.Phone;
 import com.concrete.model.entity.User;
+import com.concrete.model.to.PhoneTO;
 import com.concrete.model.to.UserTO;
+import com.concrete.model.util.DateUtil;
 
 /**
  * @author Arnaud Santana Alves
@@ -52,4 +54,32 @@ public class UserConverter {
 		return entity;
 	}
 
+	/**
+	 * Converte a enity {@link User} para a entidade {@link UserTO}
+	 * 
+	 * @param entity
+	 * 
+	 * @return {@link UserTO}
+	 */
+	public static UserTO toTO(final User entity) {
+
+		if (entity == null) {
+			return null;
+		}
+
+		final UserTO to = new UserTO();
+		to.setName(entity.getName());
+		to.setEmail(entity.getEmail());
+		to.setPassword(entity.getPassword());
+		to.setId(String.valueOf(entity.getId()));
+		to.setCreated(DateUtil.toStr(entity.getCreated()));
+		to.setModified(DateUtil.toStr(entity.getModified()));
+		to.setLastLogin(DateUtil.toStr(entity.getLastLogin()));
+		to.setToken(entity.getToken());
+
+		final List<PhoneTO> phones = PhoneConverter.toTO(entity);
+		to.setPhones(phones);
+
+		return to;
+	}
 }

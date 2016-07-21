@@ -12,9 +12,12 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 
 import com.concrete.model.entity.Phone;
+import com.concrete.model.entity.User;
 import com.concrete.model.facade.UserRegistrationFacade;
 import com.concrete.model.facade.impl.UserRegistrationFacadeImpl;
+import com.concrete.model.mock.enity.UserMock;
 import com.concrete.model.mock.to.UserTOMock;
+import com.concrete.model.to.PhoneTO;
 import com.concrete.model.to.UserTO;
 
 /**
@@ -35,15 +38,30 @@ public class PhoneConverterTest {
 	}
 
 	@Test
-	public final void testToEntitySucesso() {
+	public void testToEntitySucesso() {
 		final List<Phone> list = PhoneConverter.toEntity(userTO);
 		Assert.assertNotNull(list);
 		Assert.assertTrue(CollectionUtils.isNotEmpty(list));
 	}
 
 	@Test
-	public final void testToEntityNulla() {
+	public void testToEntityNulla() {
 		final List<Phone> list = PhoneConverter.toEntity(null);
+		Assert.assertNotNull(list);
+		Assert.assertTrue(list.isEmpty());
+	}
+
+	@Test
+	public void testToTOSucesso() {
+		final User entity = new UserMock().createMock();
+		final List<PhoneTO> list = PhoneConverter.toTO(entity);
+		Assert.assertNotNull(list);
+		Assert.assertTrue(CollectionUtils.isNotEmpty(list));
+	}
+
+	@Test
+	public void testToTONulo() {
+		final List<PhoneTO> list = PhoneConverter.toTO(null);
 		Assert.assertNotNull(list);
 		Assert.assertTrue(list.isEmpty());
 	}

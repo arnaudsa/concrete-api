@@ -14,6 +14,6 @@ import com.concrete.model.entity.User;
  */
 public interface UserRepository extends MyRepository<User, Long> {
 
-	User findByEmail(String email);
+	User findByEmail(final String email);
 
 }

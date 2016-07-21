@@ -21,7 +21,7 @@ public class PhoneTO extends TO {
 		return ddd;
 	}
 
-	public void setDdd(String ddd) {
+	public void setDdd(final String ddd) {
 		this.ddd = ddd;
 	}
 
@@ -29,8 +29,18 @@ public class PhoneTO extends TO {
 		return number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(final String number) {
 		this.number = number;
 	}
+
+	@Override
+	public String toString() {
+		final StringBuilder builder = new StringBuilder();
+		builder.append("PhoneTO [ddd=").append(ddd);
+		builder.append(", number=").append(number);
+		builder.append("]");
+		return builder.toString();
+	}
+
 
 }
