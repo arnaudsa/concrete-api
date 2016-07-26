@@ -35,7 +35,7 @@ public class DateUtil {
 		}
 		return dateStr;
 	}
-	
+
 	/**
 	 * Adiciona minutos na data passada como parametro
 	 * 
@@ -44,16 +44,16 @@ public class DateUtil {
 	 * 
 	 * @return A data acrescida dos minutos passado como parametro.
 	 */
-	public static Date addMinute(final Date date, int minute) {
-		
+	public static Date addMinute(final Date date, final int minute) {
+
 		if (date == null) {
 			return null;
 		}
-		
+
 		final Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);		
 		calendar.add(Calendar.MINUTE, minute);
-		
+
 		return calendar.getTime();			
 	}
 }

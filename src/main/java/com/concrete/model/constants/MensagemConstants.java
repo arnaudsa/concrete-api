@@ -31,6 +31,9 @@ public class MensagemConstants {
 
 	public static final String USER_OR_PASSWORD_INVALID = "Usuário e/ou senha inválidos.";
 	public static final String USER_NOT_FOUND = "Usuário {0} não encontrado.";
+	public static final String TOKEN = "token.login";
+	public static final String TOKEN_NAO_AUTORIZADO = "Não autorizado.";
+	public static final String SESSAO_INVALIDA = "Sessão inválida.";
 
 
 }

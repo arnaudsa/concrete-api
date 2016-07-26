@@ -1,15 +1,21 @@
 package com.concrete.model.security;
 
+import static com.concrete.model.constants.MensagemConstants.SESSAO_INVALIDA;
+
 import java.security.Key;
 import java.util.Date;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import com.concrete.model.exception.TokenNotFoundException;
+import com.concrete.model.to.MessageError;
 import com.concrete.model.util.DateUtil;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -18,6 +24,7 @@ public class TokenHelper {
 
 	private static final SignatureAlgorithm ALGORITHM = SignatureAlgorithm.HS512;
 
+	private static final Logger LOGGER = Logger.getLogger(TokenHelper.class);
 
 	/**
 	 * Create Token 
@@ -43,5 +50,29 @@ public class TokenHelper {
 				.setIssuer(user)
 				.setExpiration(dtExpire)
 				.signWith(ALGORITHM, key).compact();
+	}
+
+
+	/**
+	 * Verifica se o Token foi expirdado.
+	 * 
+	 * @param token
+	 * @return 
+	 * 
+	 * @return true caso o token tenha sido expirdado.
+	 * @throws TokenNotFoundException 
+	 */
+	public boolean isTokenExpiration(final String token, final String password) throws TokenNotFoundException {
+
+		try {
+			final byte[] parseBase64Binary = DatatypeConverter.parseBase64Binary(password);
+			Jwts.parser().setSigningKey(parseBase64Binary).parseClaimsJws(token).getBody();
+
+			return false;	
+
+		} catch (final ExpiredJwtException e) {
+			LOGGER.info(SESSAO_INVALIDA);
+			throw new TokenNotFoundException(new MessageError(SESSAO_INVALIDA));
+		}
 	}
 }

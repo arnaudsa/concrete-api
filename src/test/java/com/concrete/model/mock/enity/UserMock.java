@@ -21,6 +21,7 @@ public class UserMock extends MockGenerator<User> {
 	public static final Long ID = null;
 	public static final String NAME = "João da Silva";
 	public static final String PASSWORD = "hunter2";
+	private static final String TOKEN = "token";
 
 	@Override
 	public User createMock() {
@@ -30,6 +31,7 @@ public class UserMock extends MockGenerator<User> {
 		user.setId(ID);
 		user.setName(NAME);
 		user.setPassword(PASSWORD);
+		user.setToken(TOKEN);
 		user.setPhones(new PhoneMock().createMockList());
 
 		return user;
@@ -41,6 +43,8 @@ public class UserMock extends MockGenerator<User> {
 		Assert.assertEquals(EMAIL, user.getEmail());
 		Assert.assertEquals(NAME, user.getName());
 		Assert.assertEquals(PASSWORD, user.getPassword());
+		Assert.assertEquals(TOKEN, user.getToken());
+
 	}
 
 }

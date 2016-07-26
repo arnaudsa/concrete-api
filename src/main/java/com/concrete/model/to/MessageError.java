@@ -37,7 +37,7 @@ public class MessageError extends TO {
 		this.mensagens = mensagens;
 	}
 
-	public String getFirsMessage() {
+	public String firstMessage() {
 		String message = StringUtils.EMPTY;
 		if (hasError()) {
 			message = mensagens.get(NumberUtils.INTEGER_ZERO);

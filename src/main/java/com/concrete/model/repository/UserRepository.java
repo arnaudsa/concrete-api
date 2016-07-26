@@ -16,4 +16,5 @@ public interface UserRepository extends MyRepository<User, Long> {
 
 	User findByEmail(final String email);
 
+	User findByToken(final String token);
 }

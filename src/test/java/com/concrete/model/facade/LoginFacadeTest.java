@@ -21,6 +21,7 @@ import com.concrete.model.mock.enity.UserMock;
 import com.concrete.model.mock.to.LoginTOMock;
 import com.concrete.model.repository.UserRepository;
 import com.concrete.model.security.Cryptography;
+import com.concrete.model.security.TokenHelper;
 import com.concrete.model.to.LoginTO;
 import com.concrete.model.to.MessageError;
 import com.concrete.model.to.UserTO;
@@ -33,6 +34,9 @@ public class LoginFacadeTest {
 
 	@Mock
 	private Cryptography cryptography;
+
+	@Mock
+	private TokenHelper tokenHelper;
 
 	@InjectMocks
 	private final LoginFacade loginFacade = new LoginFacadeImpl();
@@ -52,7 +56,7 @@ public class LoginFacadeTest {
 
 		} catch (final BusinessException e) {			
 			final MessageError messageError = e.getMessageError();
-			Assert.assertEquals(DADOS_INVALIDOS, messageError.getFirsMessage());
+			Assert.assertEquals(DADOS_INVALIDOS, messageError.firstMessage());
 
 		}
 	}
@@ -66,7 +70,7 @@ public class LoginFacadeTest {
 
 		} catch (final BusinessException e) {			
 			final MessageError messageError = e.getMessageError();
-			Assert.assertEquals(EMAIL_NAO_INFORMADO, messageError.getFirsMessage());
+			Assert.assertEquals(EMAIL_NAO_INFORMADO, messageError.firstMessage());
 
 		}
 	}
@@ -80,7 +84,7 @@ public class LoginFacadeTest {
 
 		} catch (final BusinessException e) {			
 			final MessageError messageError = e.getMessageError();
-			Assert.assertEquals(PASSWORD_NAO_INFORMADO, messageError.getFirsMessage());
+			Assert.assertEquals(PASSWORD_NAO_INFORMADO, messageError.firstMessage());
 
 		}
 	}
@@ -95,7 +99,7 @@ public class LoginFacadeTest {
 
 		} catch (final BusinessException e) {			
 			final MessageError messageError = e.getMessageError();
-			Assert.assertEquals(USER_OR_PASSWORD_INVALID, messageError.getFirsMessage());
+			Assert.assertEquals(USER_OR_PASSWORD_INVALID, messageError.firstMessage());
 
 		}
 	}
@@ -112,7 +116,7 @@ public class LoginFacadeTest {
 
 		} catch (final BusinessException e) {			
 			final MessageError messageError = e.getMessageError();
-			Assert.assertEquals(USER_OR_PASSWORD_INVALID, messageError.getFirsMessage());
+			Assert.assertEquals(USER_OR_PASSWORD_INVALID, messageError.firstMessage());
 
 		}
 	}

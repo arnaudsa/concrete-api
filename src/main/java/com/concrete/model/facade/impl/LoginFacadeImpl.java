@@ -3,10 +3,12 @@ package com.concrete.model.facade.impl;
 import static com.concrete.model.constants.MensagemConstants.DADOS_INVALIDOS;
 import static com.concrete.model.constants.MensagemConstants.EMAIL_NAO_INFORMADO;
 import static com.concrete.model.constants.MensagemConstants.PASSWORD_NAO_INFORMADO;
+import static com.concrete.model.constants.MensagemConstants.SUBJECT_TOKEN_USER;
 import static com.concrete.model.constants.MensagemConstants.USER_NOT_FOUND;
 import static com.concrete.model.constants.MensagemConstants.USER_OR_PASSWORD_INVALID;
 
 import java.text.MessageFormat;
+import java.util.Calendar;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -22,6 +24,7 @@ import com.concrete.model.exception.UserRegistrationException;
 import com.concrete.model.facade.LoginFacade;
 import com.concrete.model.repository.UserRepository;
 import com.concrete.model.security.Cryptography;
+import com.concrete.model.security.TokenHelper;
 import com.concrete.model.to.LoginTO;
 import com.concrete.model.to.MessageError;
 import com.concrete.model.to.UserTO;
@@ -37,6 +40,8 @@ public class LoginFacadeImpl implements LoginFacade {
 	@Autowired
 	private Cryptography cryptography;
 
+	@Autowired
+	private TokenHelper tokenHelper;
 
 	@Override
 	public UserTO logar(final LoginTO loginTO) throws BusinessException  {
@@ -57,6 +62,14 @@ public class LoginFacadeImpl implements LoginFacade {
 			LOGGER.info(USER_OR_PASSWORD_INVALID);
 			throw new LoginAuthenticationException(new MessageError(USER_OR_PASSWORD_INVALID));
 		}
+
+		final Calendar agora = Calendar.getInstance();
+
+		final String token = tokenHelper.createToken(userFound.getName(), userFound.getPassword(), SUBJECT_TOKEN_USER);
+		userFound.setLastLogin(agora);
+		userFound.setModified(agora);
+		userFound.setToken(token);
+		userRepository.saveAndFlush(userFound);
 
 		return UserConverter.toTO(userFound);
 	}
