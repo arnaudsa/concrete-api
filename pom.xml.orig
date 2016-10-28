@@ -71,9 +71,15 @@
 			<version>1.9</version>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
     			<groupId>io.jsonwebtoken</groupId>
 		    	<artifactId>jjwt</artifactId>
-		    <version>0.6.0</version>
+		    	<version>0.6.2</version>
+=======
+    		<groupId>io.jsonwebtoken</groupId>
+		    <artifactId>jjwt</artifactId>
+		    <version>0.6.1</version>
+>>>>>>> 5afece0c09ffa2509d2dfc8664b14bcc602ee31b
 		</dependency>
 		<dependency>
         		<groupId>javax.servlet</groupId>
